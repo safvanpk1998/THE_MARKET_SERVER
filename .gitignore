@@ -12,7 +12,7 @@
 /build
 
 # misc
-backend/config/config.env
+/utils
 
 .DS_Store
 .env.local
