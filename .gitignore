@@ -9,7 +9,6 @@
 /coverage
 
 # production
-/bui/utils
 
 node_modules
 .DS_Store
