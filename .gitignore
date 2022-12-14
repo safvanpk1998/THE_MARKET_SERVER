@@ -9,11 +9,9 @@
 /coverage
 
 # production
-/build
+/bui/utils
 
-# misc
-
-
+node_modules
 .DS_Store
 .env.local
 .env.development.local
@@ -23,3 +21,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+or.log*
