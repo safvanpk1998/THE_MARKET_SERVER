@@ -24,7 +24,7 @@ app.use(cookieParser())
 
 const cors = require('cors');
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:'https://the-market.onrender.com', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
