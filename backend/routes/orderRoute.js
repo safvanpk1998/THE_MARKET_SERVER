@@ -15,7 +15,7 @@ const { isAuthenticatedUser, authorizedRoles } = require("../middleware/auth");
 const router = express.Router();
 
 router.route("/order/new").post(isAuthenticatedUser, createNewOrder);
-router.route("/api/v1/getkey").get(isAuthenticatedUser, getKey);
+router.route("/getkey").get(isAuthenticatedUser, getKey);
 router.route("/order/razorpayPayment").post(isAuthenticatedUser, razorpayPayment);
 router.route("/order/myorders").get(isAuthenticatedUser, myOrder);
 router
