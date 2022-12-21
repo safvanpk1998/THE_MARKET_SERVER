@@ -96,6 +96,15 @@ exports.createNewOrder = catchAsyncError(async (req, res, next) => {
   
 
 });
+exports.getKey = catchAsyncError(async (req, res, next) => {
+
+  const key={razorkey:process.env.RAZORPAY_API_KEY}
+  res.status(200).json({
+    success: true,
+    key,
+  });
+
+})
 
 
 //razorpay payment gate way

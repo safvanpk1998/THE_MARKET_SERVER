@@ -44,9 +44,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/my-app/build/index.html"));
 });
 
-app.get("/api/v1/getkey", (req, res) =>
-  res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
-);
+// app.get("/api/v1/getkey", (req, res) =>
+//   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+// );
 
 
 //middleware for error
