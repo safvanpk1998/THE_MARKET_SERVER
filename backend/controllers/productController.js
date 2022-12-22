@@ -34,6 +34,7 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getAllProduct = catchAsyncError(async (req, res, next) => {
+ 
   // const userid= req.user.id
 
   const productCount = await Product.countDocuments();
@@ -73,6 +74,9 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
   if (!products) {
     return next(new ErrorHandler("product not found", 404));
   }
+
+  await cloudinary.v2.uploader.destroy(Product.images[0].public_id);
+
   const myCloud = await cloudinary.v2.uploader.upload(req.body.image, {
     folder: "products",
     // width:300,
