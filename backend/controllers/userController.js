@@ -69,7 +69,12 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 //logout User
 
 exports.logoutUser = catchAsyncError(async (req, res, next) => {
-  res.clearCookie('token',{path: '/'})
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    secure: process.env.NODE_ENV !== "PRODUCTION",
+    httpOnly: true,
+    sameSite: "none",
+  });
 
   res.status(200).json({
     success: true,
@@ -89,7 +94,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
   //
 
-  const otp =user.getResetPasswordToken();
+  const otp = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
 
   // const resetPasswordUrl = `${req.protocol}://${req.get(
@@ -116,23 +121,24 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   }
 });
 
-
 //confirm Otp
 
 exports.confirmOtp = catchAsyncError(async (req, res, next) => {
- 
-  const resetPasswordToken = req.body.OTP
-  const email=req.body.email
+  const resetPasswordToken = req.body.OTP;
+  const email = req.body.email;
 
   const user = await User.findOne({
     resetPasswordToken,
-   email,
+    email,
     resetPasswordExpire: { $gt: Date.now() },
   });
 
   if (!user) {
     return next(
-      new ErrorHandler("reset password token is invalid or has been expired",400)
+      new ErrorHandler(
+        "reset password token is invalid or has been expired",
+        400
+      )
     );
   }
 
@@ -148,23 +154,19 @@ exports.confirmOtp = catchAsyncError(async (req, res, next) => {
 
     message: `OTP verified  `,
   });
-
 });
 
 exports.resetPassword = catchAsyncError(async (req, res, next) => {
- 
-  const resetPasswordToken = "OTP"
-  const email=req.body.email
+  const resetPasswordToken = "OTP";
+  const email = req.body.email;
 
   const user = await User.findOne({
     // resetPasswordToken,
-    email
+    email,
   });
 
   if (!user) {
-    return next(
-      new ErrorHandler("Something went Wrong Please try Again")
-    );
+    return next(new ErrorHandler("Something went Wrong Please try Again"));
   }
 
   if (req.body.password !== req.body.confirmPassword) {
@@ -184,14 +186,14 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
 exports.getUserDetails = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id);
- const  ordercount= await Order.countDocuments({user: req.user.id})
- const  Wishlistcount= await WishList.countDocuments({user: req.user.id})
+  const ordercount = await Order.countDocuments({ user: req.user.id });
+  const Wishlistcount = await WishList.countDocuments({ user: req.user.id });
 
   res.status(200).json({
     success: true,
     user,
     ordercount,
-    Wishlistcount
+    Wishlistcount,
     // orderNumber,
     // wishlistCount
   });
@@ -243,26 +245,26 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 //get all users(admin)
 
 exports.getAllUser = catchAsyncError(async (req, res, next) => {
-
-
   const userCountCount = await User.countDocuments();
- 
-  const apiFeature = new ApiFeatures(User.find().sort({createdAt:-1}), req.query)
+
+  const apiFeature = new ApiFeatures(
+    User.find().sort({ createdAt: -1 }),
+    req.query
+  )
     .serach()
-    .filter()
-   // . serachByCategory()
-    
-  
+    .filter();
+  // . serachByCategory()
+
   let filter = await apiFeature.query.clone();
 
-  let filterdUserCount=filter.length;
-  apiFeature.pagination()
-  let user=await apiFeature.query
+  let filterdUserCount = filter.length;
+  apiFeature.pagination();
+  let user = await apiFeature.query;
   res.status(201).json({
     success: true,
     user,
     filterdUserCount,
-    userCountCount
+    userCountCount,
   });
 });
 
