@@ -69,7 +69,7 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 //logout User
 
 exports.logoutUser = catchAsyncError(async (req, res, next) => {
-  res.clearCookie('mlcl')
+  res.clearCookie('token')
 
   res.status(200).json({
     success: true,
