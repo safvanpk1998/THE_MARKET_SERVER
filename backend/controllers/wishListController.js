@@ -10,7 +10,7 @@ exports.createNewWishList = catchAsyncError(async (req, res, next) => {
     let product = req.params.id;
     // let user=req.user.id;
     let existingUser=await WishList.find(({user: req.user.id,product:req.params.id}))
-    console.log(existingUser,"exist")
+
 
     if (productCount>=10) {
       return next(new ErrorHandler("maximum Count reached", 404));

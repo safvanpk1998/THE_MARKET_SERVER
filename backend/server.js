@@ -15,7 +15,6 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 
 connectDatabase()
 const server =app.listen(process.env.PORT,()=>{
-    console.log(`server is working on ${process.env.PORT}`)
 })
 
 cloudinary.config({

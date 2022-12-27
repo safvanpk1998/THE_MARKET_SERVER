@@ -205,21 +205,13 @@ exports.deletetReviews = catchAsyncError(async (req, res, next) => {
   if (!products) {
     return next(new ErrorHandler("product not found", 404));
   }
-  // const reviews = products.reviews.filter(
-
-  //   (rev) => rev._id.toString() !== req.query.id.toString(),
-  //   // console.log(rev._id)
-  // );
 
   var newReview = products.reviews.filter(function (el) {
-    // console.log(el._id.toString(), "review id");
-    // console.log(req.query.id.toString(), "queryparam");
-
+  
     return el._id.toString() !== req.query.id.toString();
-    //  el.RollNumber <= 200 &&
-    //  el.Marks >= 80 ;
+
   });
-  // console.log(newReview, "newreview");
+ 
 
   let avg = 0;
 

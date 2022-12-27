@@ -54,12 +54,12 @@ class ApiFeatures {
   pagination() {
     const currentPage = Number(this.queryStr.page) || 1; //
     const resultPerPAge= Number(this.queryStr.limit) || 15
-    console.log(currentPage,resultPerPAge)
+
 
     const skip = resultPerPAge * (currentPage - 1);
 
     this.query = this.query.limit(resultPerPAge).skip(skip);
-    console.log(this.query)
+
     return this;
     
   }
