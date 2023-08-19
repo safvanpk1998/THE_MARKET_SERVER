@@ -39,10 +39,10 @@ app.use("/api/v1", user);
 app.use("/api/v1",order);
 app.use("/api/v1",wishList);
 app.use("/api/v1",stocker);
-app.use(express.static(path.join(__dirname, "../client/my-app/build")))
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/my-app/build/index.html"));
-});
+// app.use(express.static(path.join(__dirname, "../client/my-app/build")))
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../client/my-app/build/index.html"));
+// });
 
 // app.get("/api/v1/getkey", (req, res) =>
 //   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
